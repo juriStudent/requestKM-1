@@ -5,7 +5,7 @@ function clickedSubmit(input: string) {
 
 	let urlArray = (window.location.search).split("?")
 
-	let name = urlArray[1]
+	let workerName = urlArray[1]
 	let vehicleCode = urlArray[2]
 	let lastKM = Number(urlArray[3])
 	let sessionID = urlArray[4]
@@ -25,15 +25,14 @@ function clickedSubmit(input: string) {
 			box.style.color = "red";
 			box.textContent = `Uw km moet groter zijn dan je laatste km: ${ lastKM }km`
 		}
-
 		return
 	}
 
-	alert(km)
+	submit(workerName, vehicleCode, km, sessionID)
 }
 
-function submit(km: number, sessionID: string) {
-	let url = `https://google.com/${ Number }/${ sessionID }/asohudoasdasdasd`
+function submit(workerName: string, vehicleCode: string, km: number, sessionID: string) {
+	let url = `http://localhost:7071/api/${ workerName }/${ vehicleCode }/${ km }/${ sessionID }`
 	window.location.replace(url)
 }
 

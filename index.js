@@ -3,7 +3,7 @@ function clickedSubmit(input) {
     const box = document.getElementById('userMessage');
     let km = Number(input);
     let urlArray = (window.location.search).split("?");
-    let name = urlArray[1];
+    let workerName = urlArray[1];
     let vehicleCode = urlArray[2];
     let lastKM = Number(urlArray[3]);
     let sessionID = urlArray[4];
@@ -23,10 +23,10 @@ function clickedSubmit(input) {
         }
         return;
     }
-    alert(km);
+    submit(workerName, vehicleCode, km, sessionID);
 }
-function submit(km, sessionID) {
-    let url = `https://google.com/${Number}/${sessionID}/asohudoasdasdasd`;
+function submit(workerName, vehicleCode, km, sessionID) {
+    let url = `http://localhost:7071/api/${workerName}/${vehicleCode}/${km}/${sessionID}`;
     window.location.replace(url);
 }
 //?{Name}?{vehicleCode}?{km}?{sessionID}
