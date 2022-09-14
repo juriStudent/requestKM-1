@@ -13,12 +13,14 @@
 </body onload="pageLoad()">
 <img id="image" src="img/logo.png" alt="Company logo" class="center">
 <label class="text" for="km">
-	<center>Enter km:</center>
+	<p>
+		<center id="workerName">Hallo, vul hieronder uw huidige km in:</center>
+	</p>
 </label><br>
 <p>
-	<center id="userMessage" class="text">asd</center>
+	<center id="userMessage" class="text"></center>
 </p>
-<input id="km" class="center" name="km"><br><br>
+<input id="km" class="center" name="km" placeholder="123456789"><br><br>
 <input id="submitButton" type="reset" value="Submit" class="center"
 	onclick="clickedSubmit(document.getElementById('km').value)">
 

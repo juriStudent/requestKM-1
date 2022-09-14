@@ -1,3 +1,10 @@
+let urlArray = (window.location.search).split("?");
+let workerName = urlArray[1];
+let vehicleDescription = urlArray[2];
+let lastKM = Number(urlArray[3]);
+let sessionID = urlArray[4];
+
+
 addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
         clickedSubmit(document.getElementById('km').value)
@@ -8,13 +15,6 @@ addEventListener("keypress", function (event) {
 function clickedSubmit(input) {
     const box = document.getElementById('userMessage');
     let km = Number(input);
-    let urlArray = (window.location.search).split("?");
-    let workerName = urlArray[1];
-    let vehicleCode = urlArray[2];
-    let lastKM = Number(urlArray[3]);
-    let sessionID = urlArray[4];
-
-
 
     // Input is not a number.
     if (isNaN(km)) {
@@ -32,27 +32,24 @@ function clickedSubmit(input) {
         }
         return;
     }
-    submit(workerName, vehicleCode, km, sessionID);
+    submit(workerName, vehicleDescription, km, sessionID);
 }
-function submit(workerName, vehicleCode, km, sessionID) {
-    // Obviously half link
-    let url = `.azurewebsites.net/api/${workerName}/${vehicleCode}/${km}/${sessionID}?code=`
-    // let url = `http://localhost:7071/api/${workerName}/${vehicleCode}/${km}/${sessionID}`;
+function submit(workerName, vehicleDescription, km, sessionID) {
+
+        // URL!!!
+    let url = `.azurewebsites.net/api/${workerName}/${vehicleDescription}/${km}/${sessionID}?code=`
+    // let url = `http://localhost:7071/api/${workerName}/${vehicleDescription}/${km}/${sessionID}`;
     window.location.replace(url);
 }
-//?{Name}?{vehicleCode}?{km}?{sessionID}
+//?{Name}?{vehicleDescription}?{km}?{sessionID}
 //?Cedric?ABC123?12312312?XYZ123
 
 window.onload = function pageLoad() {
+    // Do not reoder stuff that uses getElementById
     const box = document.getElementById('userMessage');
-    let urlArray = (window.location.search).split("?");
-    let lastKM = Number(urlArray[3]);
 
-    if (urlArray[5] == "low") {
-        box.style.color = "red";
-        box.textContent = `Uw km moet groter zijn dan je laatste km: ${lastKM}km`;
-    }
-    else if (urlArray[5] == "ok") {
+
+    if (urlArray[5] == "ok") {
         box.style.color = "green";
         box.textContent = `Afgelegde weg verandert naar: ${lastKM}km`;
 
@@ -61,5 +58,22 @@ window.onload = function pageLoad() {
 
         // Hide the submit button.
         document.getElementById("submitButton").style.display = "none";
+
+        // Change the worker name.
+        document.getElementById("workerName").textContent = `Bedankt ${workerName}!`;
     }
+    else if (urlArray[5] == "low") {
+        box.style.color = "red";
+        box.textContent = `Uw km moet groter zijn dan je laatste km: ${lastKM}km`;
+
+        // Change the worker name.
+        document.getElementById("workerName").textContent = `Hallo ${workerName}! Vul hieronder uw huidige km in, voor het voertuig: ${vehicleDescription}`
+    }
+    else {
+        // Change the worker name.
+        document.getElementById("workerName").textContent = `Hallo ${workerName}, vul hieronder uw huidige km in:`
+    }
+
+
+
 }
