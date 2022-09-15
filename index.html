@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Company name | Distance</title>
+
 	<link rel="stylesheet" href="index.css">
 	<script src="index.js"></script>
 </head>
@@ -12,14 +13,15 @@
 <body>
 </body onload="pageLoad()">
 <img id="image" src="img/logo.png" alt="Company logo" class="center">
-<label class="text" for="km">
-	<p>
-		<center id="workerName">Hallo, vul hieronder uw huidige km in:</center>
-	</p>
-</label><br>
+
+<p>
+	<center class="text" for="km" id="workerName">Hallo, vul hieronder uw huidige km in:</center>
+</p>
+
 <p>
 	<center id="userMessage" class="text"></center>
 </p>
+
 <input id="km" class="center" name="km" placeholder="123456789"><br><br>
 <input id="submitButton" type="reset" value="Submit" class="center"
 	onclick="clickedSubmit(document.getElementById('km').value)">
