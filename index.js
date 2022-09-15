@@ -1,8 +1,12 @@
-"use strict";
+import configJSON from "./config.json" assert {type: "json"};
 
+
+"use strict";
 // CONFIG ---- Start appName with with "http(s)://"".
-const appName = "https://google"
-const functionName = "123123"
+const appName = configJSON.domain
+
+// Everything after "?code="
+const apiKey = configJSON.key
 // CONFIG ----
 
 // getElementById() does not work in global scope for the functions.
@@ -47,7 +51,7 @@ function clickedSubmit(input) {
 
 function submit(workerName, vehicleDescription, km, sessionID) {
     // Azure function url goes here
-    let url = `${appName}.azurewebsites.net/api/${workerName}/${vehicleDescription}/${km}/${sessionID}?code=${functionName}`;
+    let url = `${appName}.azurewebsites.net/api/${workerName}/${vehicleDescription}/${km}/${sessionID}?code=${apiKey}`;
     window.location.replace(url);
 }
 
