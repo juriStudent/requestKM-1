@@ -1,20 +1,23 @@
 import configJSON from "./config.json" assert {type: "json"};
 
-
-"use strict";
 // CONFIG ---- Start appName with with "http(s)://"".
-const appName = configJSON.domain
-
+const appName = configJSON.domain;
 // Everything after "?code="
-const apiKey = configJSON.key
+const apiKey = configJSON.key;
 // CONFIG ----
 
 // getElementById() does not work in global scope for the functions.
+
+// Link params ----
 let urlArray = (window.location.search).split("?");
-let workerName = urlArray[1];
-let vehicleDescription = urlArray[2];
-let lastKM = Number(urlArray[3]);
-let sessionID = urlArray[4];
+let workerSurName = urlArray[1];
+let workerLastName = urlArray[2];
+let vehicleDescription = urlArray[3];
+let lastKM = Number(urlArray[4]);
+let transactionID = urlArray[5];
+let statusParameter = urlArray[6];
+// Link params ----
+
 
 addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
@@ -46,19 +49,17 @@ function clickedSubmit(input) {
     }
 
     // Send it to the Azure function.
-    submit(workerName, vehicleDescription, km, sessionID);
+    submit(workerSurName, vehicleDescription, km, transactionID);
 }
 
-function submit(workerName, vehicleDescription, km, sessionID) {
+function submit(workerSurName, vehicleDescription, km, transactionID) {
     // Azure function url goes here
-    let url = `${appName}.azurewebsites.net/api/${workerName}/${vehicleDescription}/${km}/${sessionID}?code=${apiKey}`;
+    let url = `${appName}.azurewebsites.net/api/${workerSurName}/${workerLastName}/${vehicleDescription}/${km}/${transactionID}?code=${apiKey}`;
     window.location.replace(url);
 }
 
 window.onload = function pageLoad() {
     const box = document.getElementById('userMessage');
-
-    let statusParameter = urlArray[5];
 
     if (statusParameter == "ok") {
         box.style.color = "green";
@@ -71,17 +72,17 @@ window.onload = function pageLoad() {
         document.getElementById("submitButton").style.display = "none";
 
         // Change the worker name.
-        document.getElementById("workerName").textContent = `Bedankt ${workerName}!`;
+        document.getElementById("workerSurName").textContent = `Bedankt ${workerSurName}!`;
     }
     else if (statusParameter == "low") {
         box.style.color = "red";
         box.textContent = `Uw km moet groter zijn dan je laatste km: ${lastKM}km`;
 
         // Change the worker name.
-        document.getElementById("workerName").textContent = `Hallo ${workerName}! Vul hieronder uw huidige km in, voor het voertuig: ${vehicleDescription}`;
+        document.getElementById("workerSurName").textContent = `Hallo ${workerSurName}! Vul hieronder uw huidige km in, voor het voertuig: ${vehicleDescription}`;
     }
     else {
         // Change the worker name.
-        document.getElementById("workerName").textContent = `Hallo ${workerName}, vul hieronder uw huidige km in:`;
+        document.getElementById("workerSurName").textContent = `Hallo ${workerSurName}, vul hieronder uw huidige km in:`;
     }
-}
+};
