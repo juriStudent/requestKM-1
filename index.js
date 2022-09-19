@@ -81,6 +81,6 @@ window.onload = function pageLoad() {
     }
     else {
         // Change the worker name.
-        document.getElementById("workerSurName").textContent = `Hallo ${workerSurName}, vul hieronder uw huidige km in:`;
+        document.getElementById("workerSurName").textContent = `Hallo ${workerSurName}, vul hieronder uw huidige km in voor ${vehicleDescription}`;
     }
 };
