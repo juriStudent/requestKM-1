@@ -1,7 +1,5 @@
 // CONFIG ---- Start appName with with "http(s)://"".
 const appName = "" // identifier.
-// Everything after "?code="
-const apiKey = "" // identifier.
 // CONFIG ----
 
 // getElementById() does not work in global scope for the functions.
@@ -54,7 +52,7 @@ function clickedSubmit(input) {
 
 function submit(workerSurName, vehicleDescription, km, transactionID) {
     // Azure function url goes here
-    let url = `${appName}.azurewebsites.net/api/${workerSurName}/${workerLastName}/${vehicleCode}/${km}/${transactionID}/0/?code=${apiKey}`;
+    let url = `${appName}.azurewebsites.net/api/${workerSurName}/${workerLastName}/${vehicleCode}/${km}/${transactionID}/0`;
     window.location.replace(url);
 }
 
