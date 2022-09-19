@@ -1,5 +1,5 @@
 // CONFIG ---- Start appName with with "http(s)://"".
-const appName = "" // identifier.
+const appName = "https://juri-km-test" // identifier.
 // CONFIG ----
 
 // getElementById() does not work in global scope for the functions.
