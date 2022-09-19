@@ -6,7 +6,12 @@ const appName = "https://juri-km-test" // identifier.
 
 // Link params ----
 let urlArray = (window.location.search).split("?");
-let workerSurName = urlArray[1];
+let workerSurName = urlArray[1].toLowerCase();
+
+// Make the first letter upper and the rest lowercase.
+workerSurName = workerSurName.charAt(0).toUpperCase() + workerSurName.slice(1);
+
+
 let workerLastName = urlArray[2];
 let vehicleCode = urlArray[3];
 let lastKM = Number(urlArray[4]);
