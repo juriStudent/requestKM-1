@@ -1,21 +1,24 @@
-import configJSON from "./config.json" assert {type: "json"};
-
 // CONFIG ---- Start appName with with "http(s)://"".
-const appName = configJSON.domain;
-// Everything after "?code="
-const apiKey = configJSON.key;
+const appName = "https://juri-km-test" // identifier.
 // CONFIG ----
 
 // getElementById() does not work in global scope for the functions.
 
 // Link params ----
 let urlArray = (window.location.search).split("?");
-let workerSurName = urlArray[1];
+let workerSurName = urlArray[1].toLowerCase();
+
+// Make the first letter upper and the rest lowercase.
+workerSurName = workerSurName.charAt(0).toUpperCase() + workerSurName.slice(1);
+
+
 let workerLastName = urlArray[2];
-let vehicleDescription = urlArray[3];
+let vehicleCode = urlArray[3];
 let lastKM = Number(urlArray[4]);
 let transactionID = urlArray[5];
-let statusParameter = urlArray[6];
+
+let vehicleDescription = urlArray[6].replace("%20", " ");
+let statusParameter = urlArray[7];
 // Link params ----
 
 
@@ -54,7 +57,7 @@ function clickedSubmit(input) {
 
 function submit(workerSurName, vehicleDescription, km, transactionID) {
     // Azure function url goes here
-    let url = `${appName}.azurewebsites.net/api/${workerSurName}/${workerLastName}/${vehicleDescription}/${km}/${transactionID}?code=${apiKey}`;
+    let url = `${appName}.azurewebsites.net/api/${workerSurName}/${workerLastName}/${vehicleCode}/${km}/${transactionID}/0`;
     window.location.replace(url);
 }
 
@@ -83,6 +86,6 @@ window.onload = function pageLoad() {
     }
     else {
         // Change the worker name.
-        document.getElementById("workerSurName").textContent = `Hallo ${workerSurName}, vul hieronder uw huidige km in:`;
+        document.getElementById("workerSurName").textContent = `Hallo ${workerSurName}, vul hieronder uw huidige km in voor ${vehicleDescription}`;
     }
 };
