@@ -17,7 +17,7 @@ let vehicleCode = urlArray[3];
 let lastKM = Number(urlArray[4]);
 let transactionID = urlArray[5];
 
-let vehicleDescription = urlArray[6].replace("%20", " ");
+let vehicleDescription = String(urlArray[6]).replaceAll("%20", " ");
 let statusParameter = urlArray[7];
 // Link params ----
 
