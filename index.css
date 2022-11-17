@@ -8,6 +8,12 @@
 	margin-right: auto;
   }
 
+.left {
+	display: block;
+	margin-left: 1em;
+	margin-right: auto;
+  }
+
 #km, #submitButton{
 	font-size: 200%;
 	height: 10%;
