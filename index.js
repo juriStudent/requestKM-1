@@ -6,10 +6,7 @@ const appName = "https://juri-km-test"; // identifier.
 
 // Link params ----
 let urlArray = window.location.search.split("?");
-let workerSurName = urlArray[1].toLowerCase();
-
-// Make the first letter upper and the rest lowercase.
-workerSurName = workerSurName.charAt(0).toUpperCase() + workerSurName.slice(1);
+let firstName = urlArray[1];
 
 let workerLastName = urlArray[2];
 let vehicleCode = urlArray[3];
@@ -49,12 +46,12 @@ function clickedSubmit(input) {
   }
 
   // Send it to the Azure function.
-  submit(workerSurName, vehicleDescription, km, transactionID);
+  submit(firstName, vehicleDescription, km, transactionID);
 }
 
-function submit(workerSurName, vehicleDescription, km, transactionID) {
+function submit(firstName, vehicleDescription, km, transactionID) {
   // Azure function url goes here
-  let url = `${appName}.azurewebsites.net/api/${workerSurName}/${workerLastName}/${vehicleCode}/${km}/${transactionID}/0`;
+  let url = `${appName}.azurewebsites.net/api/${firstName}/${workerLastName}/${vehicleCode}/${km}/${transactionID}/0`;
   window.location.replace(url);
 }
 
@@ -70,26 +67,14 @@ window.onload = function pageLoad() {
 
     // Hide the submit button.
     document.getElementById("submitButton").style.display = "none";
-
-    // Change the worker name.
-    document.getElementById(
-      "workerSurName"
-    ).textContent = `Bedankt ${workerSurName}!`;
   } else if (statusParameter == "low") {
     box.style.color = "red";
     box.textContent = `Uw km moet groter zijn dan je laatste km: ${lastKM}km`;
+  }
 
-    // Change the worker name.
-    document.getElementById(
-      "workerSurName"
-    ).textContent = `Hallo ${workerSurName}! Vul hieronder uw huidige km in, voor het voertuig: ${vehicleDescription}`;
+  if (statusParameter != "ok") {
     document.getElementById(
       "welcome"
-    ).innerHTML = `<p>Hallo ${workerSurName}! <br/>Vul hieronder uw huidige km in, voor het voertuig: <br/>${vehicleDescription}</p>`;
-  } else {
-    // Change the worker name.
-    document.getElementById(
-      "workerSurName"
-    ).textContent = `Hallo ${workerSurName}, vul hieronder uw huidige km in voor ${vehicleDescription}`;
+    ).innerHTML = `<p class='text'>Hallo ${firstName}! <br/>Vul hieronder uw huidige km in, voor het voertuig: <br/>${vehicleDescription}</p>`;
   }
 };
