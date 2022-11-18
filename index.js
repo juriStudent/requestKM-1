@@ -84,7 +84,7 @@ window.onload = function pageLoad() {
       "workerSurName"
     ).textContent = `Hallo ${workerSurName}! Vul hieronder uw huidige km in, voor het voertuig: ${vehicleDescription}`;
     document.getElementById(
-      "workerSurName"
+      "welcome"
     ).innerHTML = `<p>Hallo ${workerSurName}! <br/>Vul hieronder uw huidige km in, voor het voertuig: <br/>${vehicleDescription}</p>`;
   } else {
     // Change the worker name.
