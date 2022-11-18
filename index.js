@@ -40,12 +40,13 @@ function clickedSubmit(input) {
   if (km < lastKM) {
     if (box != null) {
       box.style.color = "red";
-      box.textContent = `Uw km moet groter zijn dan je laatste km: ${lastKM}km`;
+      box.textContent = `KM stand moet groter zijn dan je laatste: ${lastKM}km`;
     }
     return;
   }
 
   // Send it to the Azure function.
+  console.log("TEST1");
   submit(firstName, vehicleDescription, km, transactionID);
 }
 
@@ -53,6 +54,7 @@ function submit(firstName, vehicleDescription, km, transactionID) {
   // Azure function url goes here
   let url = `${appName}.azurewebsites.net/api/${firstName}/${workerLastName}/${vehicleCode}/${km}/${transactionID}/0`;
   window.location.replace(url);
+  console.log("TEST");
 }
 
 window.onload = function pageLoad() {
@@ -75,6 +77,6 @@ window.onload = function pageLoad() {
   if (statusParameter != "ok") {
     document.getElementById(
       "welcome"
-    ).innerHTML = `<p class='text'>Hallo ${firstName}! <br/>Vul hieronder uw huidige km in, voor het voertuig: <br/>${vehicleDescription}</p>`;
+    ).innerHTML = `<p class='center text-large' >Hallo ${firstName}! </p><p class='center text-normal' >Vul hieronder uw huidige km in, voor het voertuig: <br/>${vehicleDescription}</p>`;
   }
 };
